@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: dim_customer_aw
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_product_aw
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_customer_olist
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_product_olist
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_customer_dataco
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_product_dataco
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_orders_aw
+    columns:
+      - name: customer_key
+        tests:
+          - relationships:
+              to: ref('dim_customer_aw')
+              field: customer_key
+      - name: product_key
+        tests:
+          - relationships:
+              to: ref('dim_product_aw')
+              field: product_key
+
+  - name: fact_orders_olist
+    columns:
+      - name: customer_key
+        tests:
+          - relationships:
+              to: ref('dim_customer_olist')
+              field: customer_key
+      - name: product_key
+        tests:
+          - relationships:
+              to: ref('dim_product_olist')
+              field: product_key
+
+  - name: fact_orders_dataco
+    columns:
+      - name: customer_key
+        tests:
+          - relationships:
+              to: ref('dim_customer_dataco')
+              field: customer_key
+      - name: product_key
+        tests:
+          - relationships:
+              to: ref('dim_product_dataco')
+              field: product_key

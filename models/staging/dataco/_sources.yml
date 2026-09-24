@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_dataco
+    database: DW_PROJECT
+    schema: PUBLIC
+    tables:
+      - name: raw_supplychain_dataco

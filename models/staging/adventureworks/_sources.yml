@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: raw_adventureworks
+    database: DW_PROJECT
+    schema: PUBLIC
+    tables:
+      - name: raw_aw_sales
+      - name: raw_aw_product
+      - name: raw_aw_reseller
+      - name: raw_aw_region
+      - name: raw_aw_salesperson
+      - name: raw_aw_salespersonregion
+      - name: raw_aw_targets
