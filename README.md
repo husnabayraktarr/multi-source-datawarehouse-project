@@ -34,23 +34,21 @@ values.
 
 ## Architecture
 
-[SQL Server-style: AdventureWorks] ─┐
-[ERP-style CSV: Olist e-commerce] ─┼──> S3 (raw landing) ──> Snowflake (raw)
-[Oracle-style: DataCo Supply Chain] ─┘ │
-▼
-dbt: staging → dimensional marts
-│
-┌─────────────────┬──────────┴───────┐
-▼ ▼ ▼
-AdventureWorks mart Olist mart DataCo mart
-│ │ │
-└─────────────────┴──────────────────┘
-dim_date (shared)
-│
-dbt tests + reconciliation_check
+Three raw sources land in S3, get loaded into Snowflake, then flow through
+dbt staging into three separate star-schema marts, sharing one calendar
+dimension:
 
+1. AdventureWorks (SQL Server-style), Olist (ERP-style CSV), and DataCo
+   (Oracle-style) land in S3 under `raw/<source>/`
+2. Raw files load into Snowflake via `COPY INTO`
+3. dbt staging models clean each source (see data quality section below)
+4. Three independent star schemas get built: AdventureWorks mart, Olist
+   mart, DataCo mart — each with its own dimension and fact tables
+5. All three share one `dim_date` calendar dimension
+6. dbt tests and a `reconciliation_check` model validate the whole pipeline
 
-See `lineage_graph.png` for the full auto-generated dbt lineage diagram.
+See `lineage_graph.png` for the full auto-generated dbt lineage diagram,
+which shows this entire flow visually.
 
 ## Design decision: three marts, not one merged model
 
