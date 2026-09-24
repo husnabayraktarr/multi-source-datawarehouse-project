@@ -103,19 +103,15 @@ Zero rows lost or duplicated across 351,020 combined order-line records.
 
 ## Project structure
 
-models/
-├── staging/
-│ ├── adventureworks/ (7 models + sources.yml)
-│ ├── olist/ (9 models + sources.yml)
-│ └── dataco/ (1 model + sources.yml)
-└── marts/
-├── dim_date.sql
-├── dim_customer_aw.sql / dim_product_aw.sql / fact_orders_aw.sql
-├── dim_customer_olist.sql / dim_product_olist.sql / fact_orders_olist.sql
-├── dim_customer_dataco.sql / dim_product_dataco.sql / fact_orders_dataco.sql
-├── reconciliation_check.sql
-└── _marts_schema.yml
-
+- `models/staging/adventureworks/` — 7 staging models + sources.yml
+- `models/staging/olist/` — 9 staging models + sources.yml
+- `models/staging/dataco/` — 1 staging model + sources.yml
+- `models/marts/dim_date.sql` — shared calendar dimension
+- `models/marts/dim_customer_aw.sql`, `dim_product_aw.sql`, `fact_orders_aw.sql` — AdventureWorks mart
+- `models/marts/dim_customer_olist.sql`, `dim_product_olist.sql`, `fact_orders_olist.sql` — Olist mart
+- `models/marts/dim_customer_dataco.sql`, `dim_product_dataco.sql`, `fact_orders_dataco.sql` — DataCo mart
+- `models/marts/reconciliation_check.sql` — row-count validation across all 3 sources
+- `models/marts/_marts_schema.yml` — dbt tests (uniqueness, not-null, relationships)
 
 ## Running this project
 
